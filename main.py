@@ -1,5 +1,14 @@
 import threading
-import pygame
+pygame = None
+try:
+    import pygame as pygame_
+    pygame = pygame_
+except Exception: pass
+browser = None
+try: 
+    import browser as browser_
+    browser = browser_
+except Exception: pass
 eb = []
 uib = []
 mem = map([{'type': 'null'}] * 20000,lambda i: i.copy())
