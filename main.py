@@ -3,7 +3,7 @@ import pygame
 eb = []
 uib = []
 mem = map([{'type': 'null'}] * 20000,lambda i: i.copy())
-def p_eval(item,vector):
+async def p_eval(item,vector):
     pass
 def pg_main():
     global uib, eb
@@ -22,10 +22,10 @@ def pg_main():
                 eb.append(event)
 def vm_main():
     vector = []
-    def boot():
+    async def boot():
         for i in vector:
             try:
-                i.eval(vector)
+                await i.eval(vector)
             except Exception:
-                p_eval(i,vector)
+                await p_eval(i,vector)
     boot()
