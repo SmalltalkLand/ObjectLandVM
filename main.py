@@ -43,12 +43,13 @@ async def p_eval(item,vector):
     pass
 def pg_main():
     global uib, eb
-    try:
+    display = None
+    if pygame is not None:
         pygame.init()
         display = pygame.display.set_mode((600,600))
         display.get_events = pygame.event.get
         display.QUIT = pygame.QUIT
-    except Exception:
+    elif browser is not None:
         display = BrowserDisplay(None)
     done = False
     while not done:
