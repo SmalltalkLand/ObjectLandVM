@@ -11,7 +11,7 @@ try:
 except Exception: pass
 eb = []
 uib = []
-mem = map([{'type': 'null'}] * 20000,lambda i: i.copy())
+mem = map(lambda i: i.copy(),[{'type': 'null'}] * 20000)
 class BrowserDisplay:
     QUIT = 'quit'
     def __init__(self,the_element):
