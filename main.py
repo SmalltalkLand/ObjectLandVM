@@ -14,14 +14,27 @@ uib = []
 mem = map(lambda i: i.copy(),[{'type': 'null'}] * 20000)
 class BrowserDisplay:
     QUIT = 'quit'
+    def attachShadow(self,o):
+        return self
+    def appendChild(self,o):
+        self._elem.appendChild(o)
     def __init__(self,the_element):
         self._events = []
         def on_event(evt):
             self._events.append(evt)
-        the_element.bind('mousedown',on_event)
-        the_element.bind('mouseup',on_event)
-        the_element.bind('keydown',on_event)
-        the_element.bind('keyup',on_event)
+        def init_html(elem = the_element):
+            self._elem = elem
+            elem.bind('mousedown',on_event)
+            elem.bind('mouseup',on_event)
+            elem.bind('keydown',on_event)
+            elem.bind('keyup',on_event)
+        if the_element is not None:
+            init_html()
+        elif hasattr(self,'bind') and hasattr(self,'attachShadow'):
+            s = self.attachShadow({'mode': 'open'})
+            c = browser.window.document.createElement('canvas')
+            s.appendChild(c)
+            init_html(c)
     def get_events(self):
         e = self._events
         self._events = []
